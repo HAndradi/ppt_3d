@@ -2,15 +2,24 @@ cmake_minimum_required(VERSION 2.8.3)
 project(ppt_3d)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  pcl_ros
+  pcl_conversions
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+)
+
+# Compile as C++11 for ROS Kinetic and newer
+add_compile_options(-std=c++11
+  -O3
+  -march=native
 )
 
 ## System dependencies are found with CMake's conventions
@@ -116,7 +125,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -204,3 +213,8 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_executable(min_distance_to_hull_calculator 
+    src/min_distance_to_hull_calculator.cpp
+)
+target_link_libraries(min_distance_to_hull_calculator ${catkin_LIBRARIES})
