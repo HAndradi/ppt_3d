@@ -5,6 +5,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+typedef pcl::PointXYZRGBA PointRGBA;
+
 class MinDistanceToHullCalculator
 {
 public:
@@ -20,17 +22,17 @@ public:
     /**
      * Set the convex hull points of the workspace
      */
-    void setConvexHullPointsAndEdges(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& convex_hull_cloud);
+    void setConvexHullPointsAndEdges(const pcl::PointCloud<PointRGBA>::ConstPtr& convex_hull_cloud);
     
     /**
      * Calculate minimum euclidean distance between an object point and hull points 
      */
-    float computeMinDistanceToHull(const pcl::PointXYZ& object_point);
+    float computeMinDistanceToHull(const PointRGBA& object_point);
 
     /**
      * Calculate minimum euclidean distance between object cloud points and hull points
      */
-    float computeMinDistanceToHull(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& object_cloud);
+    float computeMinDistanceToHull(const pcl::PointCloud<PointRGBA>::ConstPtr& object_cloud);
     
 private:
     /**

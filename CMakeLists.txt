@@ -56,11 +56,11 @@ add_compile_options(-std=c++11
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  Cavity.msg
+  Cavities.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -77,10 +77,11 @@ add_compile_options(-std=c++11
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  sensor_msgs
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -128,6 +129,8 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
 )
+include_directories(/usr/include/eigen3)
+include_directories(${EIGEN3_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR}/unsupported/)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -213,8 +216,10 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(ppt_detector src/ppt_detector.cpp src/min_distance_to_hull_calculator.cpp)
+target_link_libraries(ppt_detector ${catkin_LIBRARIES})
 
-add_executable(min_distance_to_hull_calculator 
-    src/min_distance_to_hull_calculator.cpp
-)
-target_link_libraries(min_distance_to_hull_calculator ${catkin_LIBRARIES})
+##add_executable(min_distance_to_hull_calculator 
+##    src/min_distance_to_hull_calculator.cpp
+##)
+##target_link_libraries(min_distance_to_hull_calculator ${catkin_LIBRARIES})
