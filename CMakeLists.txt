@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 # Compile as C++11 for ROS Kinetic and newer
 add_compile_options(-std=c++11
   -O3
-  -march=native
+#  -march=native
 )
 
 ## System dependencies are found with CMake's conventions
